@@ -1,48 +1,41 @@
 locals {
   public_subnets = {
-    "subnet-elb-1a" = {
+    elb-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
-      tags = {
-        Name = "public-subnet-elb-${var.project_name}"
-      }
-    },
+    }
+    elb-1c = {
+      az         = "${var.default_region}c"
+      cidr_block = "10.0.1.0/24"
+    }
   }
 
   private_subnets = {
-    "subnet-ecs-1a" = {
+    ecs-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.10.0/24"
-      tags = {
-        Name = "private-subnet-ecs-${var.project_name}-1a"
-      }
-    },
-    "subnet-rds-1a" = {
-      az         = "${var.default_region}a"
-      cidr_block = "10.0.20.0/24"
-      tags = {
-        Name = "private-subnet-rds-${var.project_name}-1a"
-      }
-    },
-    "subnet-ecs-1c" = {
+    }
+    ecs-1c = {
       az         = "${var.default_region}c"
       cidr_block = "10.0.11.0/24"
-      tags = {
-        Name = "private-subnet-ecs-${var.project_name}-1c"
-      }
-    },
-    "subnet-rds-1c" = {
+    }
+    rds-1a = {
+      az         = "${var.default_region}a"
+      cidr_block = "10.0.20.0/24"
+    }
+    rds-1c = {
       az         = "${var.default_region}c"
       cidr_block = "10.0.21.0/24"
-      tags = {
-        Name = "private-subnet-rds-${var.project_name}-1c"
-      }
     }
   }
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block                       = "10.0.0.0/16"
+  instance_tenancy                 = "default"
+  enable_dns_support               = true
+  enable_dns_hostnames             = true
+  assign_generated_ipv6_cidr_block = false
   tags = {
     Name = "main-vpc"
   }
@@ -54,7 +47,9 @@ resource "aws_subnet" "public_subnets" {
   vpc_id            = aws_vpc.main.id
   availability_zone = each.value.az
   cidr_block        = each.value.cidr_block
-  tags              = each.value.tags
+  tags = {
+    Name = "public-subnet-${each.key}"
+  }
 }
 
 resource "aws_subnet" "private_subnets" {
@@ -63,7 +58,9 @@ resource "aws_subnet" "private_subnets" {
   vpc_id            = aws_vpc.main.id
   availability_zone = each.value.az
   cidr_block        = each.value.cidr_block
-  tags              = each.value.tags
+  tags = {
+    Name = "private-subnet-${each.key}"
+  }
 }
 
 resource "aws_internet_gateway" "igw" {
