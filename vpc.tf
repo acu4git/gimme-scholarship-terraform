@@ -19,14 +19,14 @@ locals {
     },
     "subnet-rds-1a" = {
       az         = "${var.default_region}a"
-      cidr_block = "10.0.11.0/24"
+      cidr_block = "10.0.20.0/24"
       tags = {
         Name = "private-subnet-rds-${var.project_name}-1a"
       }
     },
     "subnet-ecs-1c" = {
       az         = "${var.default_region}c"
-      cidr_block = "10.0.20.0/24"
+      cidr_block = "10.0.11.0/24"
       tags = {
         Name = "private-subnet-ecs-${var.project_name}-1c"
       }
@@ -44,7 +44,7 @@ locals {
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "vpc-main"
+    Name = "main-vpc"
   }
 }
 
@@ -66,10 +66,10 @@ resource "aws_subnet" "private_subnets" {
   tags              = each.value.tags
 }
 
-resource "aws_internet_gateway" "main" {
+resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "igw-main"
+    Name = "main-igw"
   }
 }
