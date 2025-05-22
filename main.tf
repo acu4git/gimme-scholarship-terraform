@@ -1,3 +1,8 @@
+variable "project" {
+  type    = string
+  default = "gimme-scholarship"
+}
+
 variable "default_profile" {
   type    = string
   default = "acu-admin"
