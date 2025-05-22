@@ -17,7 +17,7 @@ variable "default_tags" {
   type = map(string)
 
   default = {
-    Project   = "gimme-scholarship"
+    Project   = var.project
     ManagedBy = "https://github.com/acu4git/gimme-scholarship-terraform"
   }
 }
