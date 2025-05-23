@@ -63,14 +63,6 @@ resource "aws_subnet" "private_subnets" {
   }
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "main-igw"
-  }
-}
-
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main.id
 
@@ -101,4 +93,18 @@ resource "aws_route_table_association" "private-rt" {
 
   route_table_id = aws_route_table.private-rt.id
   subnet_id      = aws_subnet.private_subnets[each.key].id
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "main-igw"
+  }
+}
+
+resource "aws_route" "public-rt-igw" {
+  route_table_id         = aws_route_table.public_rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
 }
