@@ -8,6 +8,10 @@ locals {
       az         = "${var.default_region}c"
       cidr_block = "10.0.1.0/24"
     }
+    proxy-ec2 = {
+      az         = "${var.default_region}a"
+      cidr_block = "10.0.2.0/24"
+    }
   }
 
   private_subnets = {
