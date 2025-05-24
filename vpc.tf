@@ -4,10 +4,6 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
     }
-    elb-1c = {
-      az         = "${var.default_region}c"
-      cidr_block = "10.0.1.0/24"
-    }
     proxy-ec2 = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.2.0/24"
@@ -19,17 +15,9 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.10.0/24"
     }
-    ecs-1c = {
-      az         = "${var.default_region}c"
-      cidr_block = "10.0.11.0/24"
-    }
     rds-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.20.0/24"
-    }
-    rds-1c = {
-      az         = "${var.default_region}c"
-      cidr_block = "10.0.21.0/24"
     }
   }
 }
