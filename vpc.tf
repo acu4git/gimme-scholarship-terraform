@@ -4,10 +4,6 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
     }
-    proxy-ec2 = {
-      az         = "${var.default_region}a"
-      cidr_block = "10.0.2.0/24"
-    }
   }
 
   private_subnets = {
@@ -18,6 +14,10 @@ locals {
     rds-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.20.0/24"
+    }
+    bastion-1a = {
+      az         = "${var.default_region}a"
+      cidr_block = "10.0.30.0/24"
     }
   }
 }
