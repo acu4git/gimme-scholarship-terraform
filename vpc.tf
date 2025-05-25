@@ -4,6 +4,10 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
     }
+    dummy-1c = {
+      az         = "${var.default_region}c"
+      cidr_block = "10.0.1.0/24"
+    }
   }
 
   private_subnets = {
@@ -62,6 +66,11 @@ resource "aws_route_table" "public_rt" {
     Name = "public-rt"
     Type = "public"
   }
+}
+
+resource "aws_main_route_table_association" "public_rt" {
+  vpc_id         = aws_vpc.main.id
+  route_table_id = aws_route_table.public_rt.id
 }
 
 resource "aws_route_table_association" "public-rt" {
