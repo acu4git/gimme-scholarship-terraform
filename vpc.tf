@@ -19,10 +19,6 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.20.0/24"
     }
-    bastion-1a = {
-      az         = "${var.default_region}a"
-      cidr_block = "10.0.30.0/24"
-    }
   }
 }
 
