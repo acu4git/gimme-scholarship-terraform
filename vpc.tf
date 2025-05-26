@@ -1,6 +1,6 @@
 locals {
   public_subnets = {
-    elb-1a = {
+    backend-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
     }
@@ -11,10 +11,6 @@ locals {
   }
 
   private_subnets = {
-    ecs-1a = {
-      az         = "${var.default_region}a"
-      cidr_block = "10.0.10.0/24"
-    }
     rds-1a = {
       az         = "${var.default_region}a"
       cidr_block = "10.0.20.0/24"
