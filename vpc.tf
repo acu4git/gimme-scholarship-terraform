@@ -4,7 +4,7 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.0.0/24"
     }
-    dummy-1c = {
+    backend-1c = {
       az         = "${var.default_region}c"
       cidr_block = "10.0.1.0/24"
     }
