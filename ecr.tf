@@ -18,3 +18,10 @@ resource "aws_ecr_repository" "gimme-scholarship-migrate" {
     Name = "${var.project}-migrate"
   }
 }
+
+resource "aws_ecr_repository" "gimme-scholarship-scraping" {
+  name = "${var.project}-scraping"
+  tags = {
+    Name = "${var.project}-scraping"
+  }
+}
