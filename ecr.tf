@@ -19,9 +19,9 @@ resource "aws_ecr_repository" "gimme-scholarship-migrate" {
   }
 }
 
-resource "aws_ecr_repository" "gimme-scholarship-scraping" {
-  name = "${var.project}-scraping"
+resource "aws_ecr_repository" "gimme-scholarship-fetch" {
+  name = "${var.project}-fetch"
   tags = {
-    Name = "${var.project}-scraping"
+    Name = "${var.project}-fetch"
   }
 }
