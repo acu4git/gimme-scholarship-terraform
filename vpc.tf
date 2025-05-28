@@ -15,6 +15,10 @@ locals {
       az         = "${var.default_region}a"
       cidr_block = "10.0.20.0/24"
     }
+    rds-1c = {
+      az         = "${var.default_region}c"
+      cidr_block = "10.0.21.0/24"
+    }
   }
 }
 
