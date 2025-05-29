@@ -16,3 +16,11 @@ resource "aws_secretsmanager_secret_version" "rds-master-password-version" {
     password = random_password.rds_admin_password.result
   })
 }
+
+data "aws_secretsmanager_secret" "db_credentials" {
+  name = "rds/gimme-scholarship/password"
+}
+
+data "aws_secretsmanager_secret_version" "db_credentials" {
+  secret_id = data.aws_secretsmanager_secret.db_credentials.id
+}
