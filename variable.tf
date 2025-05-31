@@ -29,3 +29,7 @@ variable "default_tags" {
 variable "db_name" {
   type = string
 }
+
+variable "clerk_jwks_url" {
+  type = string
+}

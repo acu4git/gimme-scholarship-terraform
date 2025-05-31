@@ -50,6 +50,10 @@ resource "aws_ecs_task_definition" "gimme-scholarship-api" {
         {
           name      = "DB_PORT"
           valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:port::"
+        },
+        {
+          name      = "CLERK_JWKS_URL"
+          valueFrom = aws_ssm_parameter.clerk_jwks_url.arn
         }
       ]
       logConfiguration = {

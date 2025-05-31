@@ -69,3 +69,29 @@ resource "aws_iam_role_policy" "ecs_secretsmanager_access" {
     ]
   })
 }
+
+resource "aws_iam_policy" "ecs_ssm_readable" {
+  name = "ssm-read-policy-for-ecs-task"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ssm:GetParameters",
+          "ssm:GetParameter",
+          "ssm:GetParameterByPath"
+        ]
+        Resource = [
+          "arn:aws:ssm:${var.default_region}:${var.account_id}:parameter/${var.project}/*"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ssm_readable" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.ecs_ssm_readable.arn
+}
