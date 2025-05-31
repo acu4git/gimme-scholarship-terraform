@@ -28,11 +28,20 @@ resource "aws_security_group" "db-sg" {
     Name = "db-sg"
   }
 
+  # from EC2
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion.id]
+  }
+
+  # from ECS
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs-db-sg.id, aws_security_group.webapi-sg.id]
   }
 
   egress {
