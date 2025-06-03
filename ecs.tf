@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "gimme-scholarship-api" {
   container_definitions = jsonencode([
     {
       name  = "gimme-scholarship-api"
-      image = "${var.account_id}.dkr.ecr.${var.default_region}.amazonaws.com/gimme-scholarship:latest"
+      image = "${var.account_id}.dkr.ecr.${var.default_region}.amazonaws.com/gimme-scholarship-api:latest"
       portMappings = [
         {
           protocol      = "tcp"
