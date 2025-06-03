@@ -1,7 +1,7 @@
-resource "aws_ecr_repository" "gimme-scholarship" {
-  name = var.project
+resource "aws_ecr_repository" "gimme-scholarship-api" {
+  name = "${var.project}-api"
   tags = {
-    Name = var.project
+    Name = "${var.project}-api"
   }
 }
 
