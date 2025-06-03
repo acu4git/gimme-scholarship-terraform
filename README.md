@@ -17,7 +17,7 @@ AWS リソースのほぼ全てを Terraform で構築しています(一部コ�
 ## アーキテクチャ図
 
 こちらを参照 ↓<br>
-https://github.com/acu4git/gimme-scholarship?tab=readme-ov-file#%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89
+https://github.com/acu4git/gimme-scholarship/?tab=readme-ov-file#%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E5%9B%B3
 
 ## その他
 
