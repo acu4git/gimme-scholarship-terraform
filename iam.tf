@@ -138,3 +138,41 @@ resource "aws_iam_role" "github_actions_role" {
   name               = "github-actions-role"
   assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role_policy.json
 }
+
+resource "aws_iam_role_policy" "ecr-push" {
+  name = "ecr-push"
+  role = aws_iam_role.github_actions_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:CompleteLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:InitiateLayerUpload",
+          "ecr:PutImage"
+        ]
+        Resource = "*"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "ecs:DescribeTaskDefinition",
+          "ecs:RegisterTaskDefinition",
+          "ecs:UpdateService",
+          "ecs:DescribeServices"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : "iam:PassRole",
+        "Resource" : aws_iam_role.ecs_task_execution_role.arn
+      }
+    ]
+  })
+}
