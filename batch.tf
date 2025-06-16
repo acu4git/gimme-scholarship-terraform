@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_event_rule" "gimme_scholarship_fetch" {
   name                = "${var.project}-fetch-rule"
-  schedule_expression = "cron(0 1 * * ? *)"
+  schedule_expression = "cron(0 15 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "gimme_scholarship_fetch" {
