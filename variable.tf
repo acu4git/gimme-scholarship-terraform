@@ -1,3 +1,7 @@
+variable "domain_name" {
+  type = string
+}
+
 variable "account_id" {
   type = string
 }
@@ -31,5 +35,13 @@ variable "db_name" {
 }
 
 variable "clerk_jwks_url" {
+  type = string
+}
+
+variable "cloudflare_api_token" {
+  type = string
+}
+
+variable "cloudflare_zone_id" {
   type = string
 }
