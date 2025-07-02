@@ -50,6 +50,27 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_basic_policy"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_policy" "ecs_task_ses" {
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ses:SendEmail",
+          "ses:SendBulkTemplatedEmail"
+        ]
+        Resource = ["*"]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_ses" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.ecs_task_ses.arn
+}
+
 resource "aws_iam_role_policy" "ecs_secretsmanager_access" {
   name = "ecs-secretsmanager-access"
   role = aws_iam_role.ecs_task_execution_role.id
