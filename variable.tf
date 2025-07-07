@@ -38,6 +38,10 @@ variable "clerk_jwks_url" {
   type = string
 }
 
+variable "clerk_webhook_secret" {
+  type = string
+}
+
 variable "cloudflare_api_token" {
   type = string
 }

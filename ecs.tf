@@ -30,6 +30,12 @@ resource "aws_ecs_task_definition" "gimme-scholarship-api" {
           hostPort      = 8080
         }
       ]
+      environment = [
+        {
+          name  = "CLERK_WEBHOOK_SECRET_KEY"
+          value = var.clerk_webhook_secret
+        },
+      ]
       secrets = [
         {
           name      = "DB_NAME"
