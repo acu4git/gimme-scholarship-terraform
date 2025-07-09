@@ -258,3 +258,55 @@ resource "aws_ecs_service" "gimme-scholarship-fetch" {
     assign_public_ip = true
   }
 }
+
+resource "aws_ecs_task_definition" "gimme-scholarship-task" {
+  family                   = "gimme-scholarship-task"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+
+  runtime_platform {
+    cpu_architecture        = "X86_64"
+    operating_system_family = "LINUX"
+  }
+
+  container_definitions = jsonencode([
+    {
+      name  = "gimme-scholarship-task"
+      image = "${var.account_id}.dkr.ecr.${var.default_region}.amazonaws.com/gimme-scholarship-task:latest"
+      secrets = [
+        {
+          name      = "DB_NAME"
+          valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:dbname::"
+        },
+        {
+          name      = "DB_USER"
+          valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:username::"
+        },
+        {
+          name      = "DB_PASSWORD"
+          valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:password::"
+        },
+        {
+          name      = "DB_HOST"
+          valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:host::"
+        },
+        {
+          name      = "DB_PORT"
+          valueFrom = "${data.aws_secretsmanager_secret.db_credentials.arn}:port::"
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/gimme-scholarship-task"
+          awslogs-region        = var.default_region
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+    }
+  ])
+
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+}
