@@ -3,8 +3,8 @@ resource "aws_cloudwatch_event_rule" "gimme_scholarship_fetch" {
   schedule_expression = "cron(0 15 * * ? *)"
 }
 
-resource "aws_cloudwatch_event_rule" "gimme_scholarship_task" {
-  name                = "${var.project}-task-rule"
+resource "aws_cloudwatch_event_rule" "notify_scholarship_deadline" {
+  name                = "${var.project}-notify_scholarship_deadline-rule"
   schedule_expression = "cron(0 0 * * ? *)"
 }
 
@@ -25,11 +25,11 @@ resource "aws_cloudwatch_event_target" "gimme_scholarship_fetch" {
   }
 }
 
-resource "aws_cloudwatch_event_target" "gimme_scholarship_task" {
-  rule     = aws_cloudwatch_event_rule.gimme_scholarship_task.name
+resource "aws_cloudwatch_event_target" "notify_scholarship_deadline" {
+  rule     = aws_cloudwatch_event_rule.notify_scholarship_deadline.name
   role_arn = aws_iam_role.ecs_events_role.arn
   arn      = aws_ecs_cluster.backend-cluster.arn
-
+  input    = jsonencode({ "containerOverrides" : [{ "name" : "account-manager-task", "command" : ["-task", "NOTIFY_SCHOLARSHIP_DEADLINE"] }] })
   ecs_target {
     launch_type         = "FARGATE"
     platform_version    = "LATEST"
