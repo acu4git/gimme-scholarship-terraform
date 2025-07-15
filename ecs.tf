@@ -310,3 +310,17 @@ resource "aws_ecs_task_definition" "gimme-scholarship-task" {
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 }
+
+resource "aws_ecs_service" "gimme-scholarship-task" {
+  name            = "gimme-scholarship-task"
+  cluster         = aws_ecs_cluster.backend-cluster.id
+  task_definition = aws_ecs_task_definition.gimme-scholarship-task.arn
+  desired_count   = 0
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = [aws_subnet.public_subnets["backend-1a"].id, aws_subnet.public_subnets["backend-1c"].id]
+    security_groups  = [aws_security_group.ecs-db-sg.id]
+    assign_public_ip = true
+  }
+}
