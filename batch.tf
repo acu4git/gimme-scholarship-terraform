@@ -29,7 +29,7 @@ resource "aws_cloudwatch_event_target" "notify_scholarship_deadline" {
   rule     = aws_cloudwatch_event_rule.notify_scholarship_deadline.name
   role_arn = aws_iam_role.ecs_events_role.arn
   arn      = aws_ecs_cluster.backend-cluster.arn
-  input    = jsonencode({ "containerOverrides" : [{ "name" : "account-manager-task", "command" : ["-task", "NOTIFY_SCHOLARSHIP_DEADLINE"] }] })
+  input    = jsonencode({ "containerOverrides" : [{ "name" : "gimme-scholarship-task", "command" : ["-task", "NOTIFY_SCHOLARSHIP_DEADLINE"] }] })
   ecs_target {
     launch_type         = "FARGATE"
     platform_version    = "LATEST"
