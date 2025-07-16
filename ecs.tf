@@ -74,6 +74,7 @@ resource "aws_ecs_task_definition" "gimme-scholarship-api" {
   ])
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
 }
 
 resource "aws_ecs_service" "gimme-scholarship-api" {
@@ -243,6 +244,7 @@ resource "aws_ecs_task_definition" "gimme-scholarship-fetch" {
   ])
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
 }
 
 resource "aws_ecs_service" "gimme-scholarship-fetch" {
@@ -309,6 +311,7 @@ resource "aws_ecs_task_definition" "gimme-scholarship-task" {
   ])
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
 }
 
 resource "aws_ecs_service" "gimme-scholarship-task" {

@@ -66,8 +66,25 @@ resource "aws_iam_policy" "ecs_task_ses" {
   })
 }
 
+resource "aws_iam_role" "ecs_task_role" {
+  name = "ecs-task-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+        Action = ["sts:AssumeRole"]
+        Effect = "Allow"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "ecs_task_ses" {
-  role       = aws_iam_role.ecs_task_execution_role.name
+  role       = aws_iam_role.ecs_task_role.name
   policy_arn = aws_iam_policy.ecs_task_ses.arn
 }
 
