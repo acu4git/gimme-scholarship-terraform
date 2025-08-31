@@ -1,6 +1,6 @@
 # このリポジトリについて
 
-京都工芸繊維大学の学生を対象とした奨学金一覧へのアクセスを便利にした Web アプリ「[KIT クレクレ奨学金](https://www.kit-gimme-scholarship.com/)」のインフラのリポジトリです．
+京都工芸繊維大学の学生を対象とした奨学金一覧へのアクセスを便利にした Web アプリ「[KIT クレクレ奨学金](https://www.kit-gimme-scholarship.com/)(現在停止中)」のインフラのリポジトリです．
 
 **バックエンド**: https://github.com/acu4git/gimme-scholarship/<br>
 **フロントエンド**: https://github.com/acu4git/gimme-scholarship-front/
