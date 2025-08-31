@@ -32,7 +32,11 @@ resource "cloudflare_record" "ses_verification" {
 # 2. SESのDKIM認証を検証するための3つのCNAMEレコードを作成
 resource "cloudflare_record" "ses_dkim" {
   # for_eachを使い、aws_ses_domain_dkimが生成した3つのトークンに対してレコードをループ作成
-  for_each = toset(aws_ses_domain_dkim.main.dkim_tokens)
+  for_each = {
+    dkim1 = aws_ses_domain_dkim.main.dkim_tokens[0]
+    dkim2 = aws_ses_domain_dkim.main.dkim_tokens[1]
+    dkim3 = aws_ses_domain_dkim.main.dkim_tokens[2]
+  }
 
   zone_id = var.cloudflare_zone_id
   name    = "${each.key}._domainkey"

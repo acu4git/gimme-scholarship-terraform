@@ -11,6 +11,7 @@ resource "aws_db_instance" "mysql-free-tier" {
   publicly_accessible    = false
   multi_az               = false
   storage_type           = "gp2"
+  skip_final_snapshot    = true
 }
 
 resource "aws_db_subnet_group" "main" {
